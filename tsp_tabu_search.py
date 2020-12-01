@@ -68,11 +68,7 @@ def start(city_list):
         if is_best:
             best_solution = copy.deepcopy(current_solution)
 
-        #print(calculate_cost(best_solution, start_city))
-
     current_solution = copy.deepcopy(best_solution)
-
-    print('start memory phase')
 
     # memory phase
     for x in range(100):
@@ -102,7 +98,5 @@ def start(city_list):
 
         if is_best:
             best_solution = copy.deepcopy(current_solution)
-
-        #print(calculate_cost(best_solution, start_city))
 
     return best_solution, best_cost

@@ -14,7 +14,7 @@ class City:
 
 
 class Population:
-    def __init__(self, size=150, city_list=None, start_city=None):
+    def __init__(self, size=100, city_list=None, start_city=None):
         self.size = size
         self.population = []
 
@@ -107,8 +107,10 @@ def start(city_list):
     population = Population(city_list=city_list, start_city=start_city)
 
     best_performing = None
-
-    for i in range(15000):
+    not_improvement_cnt = 0
+    for i in range(30000):
+        if not_improvement_cnt > 3000:
+            break
         parent1, parent2 = selection(population)
         offspring = breed(parent1, parent2)
         offspring = mutate(offspring, 0.1)
@@ -117,6 +119,8 @@ def start(city_list):
         current_best = population.get_best_performing()
         if best_performing is None or best_performing.fitness < current_best.fitness:
             best_performing = copy.deepcopy(current_best)
-            print('step ', i, ' found new best performing ', best_performing.calculate_route_cost())
+            not_improvement_cnt = 0
+        else:
+            not_improvement_cnt += 1
 
     return best_performing
